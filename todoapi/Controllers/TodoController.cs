@@ -55,16 +55,9 @@ namespace TodoApi.Controllers
         [HttpGet("{longtitude}&{latitude}")]
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItem(float longtitude, float latitude)
         {
-            List<TodoItem> k = await _context.TodoItems.ToListAsync();
-            List<TodoItem> l = null;
-            for (int i = 1; i < k.Count; i++)
-            {
-                if (k.ElementAt(i).latitude > latitude-5 && k.ElementAt(i).latitude < latitude+5)
-                {
-                    l.Add(k.ElementAt(i));
-                }
-            }
-            Console.Write(latitude.ToString());
+            List<TodoItem> k = await _context.TodoItems
+            .Where(b=>b.latitude>latitude-5 && b.latitude<latitude+5)
+            .ToListAsync();
             return l; 
         }
 
