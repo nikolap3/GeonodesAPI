@@ -11,7 +11,7 @@ using TodoApi.Models;
 
 namespace TodoApi.Controllers
 {
-    [Route("api/todo")]
+    [Route("api/Todo")]
     [ApiController]
     public class TodoController : ControllerBase
     {
@@ -49,6 +49,16 @@ namespace TodoApi.Controllers
             }
 
             return todoItem;
+        }
+
+        //GET: api/Todo/5.4&4.3
+        [HttpGet("{longtitude}&{latitude}")]
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItem(float longtitude, float latitude)
+        {
+            List<TodoItem> k = await _context.TodoItems
+            .Where(b=>b.latitude>latitude-5 && b.latitude<latitude+5)
+            .ToListAsync();
+            return l; 
         }
 
         // POST: api/Todo
